@@ -6,6 +6,7 @@ using Newtonsoft.Json;
 using System.Security.Cryptography;
 using Flurl;
 using Flurl.Http;
+using System.Configuration;
 
 namespace NiceHashCalc
 {   
@@ -14,15 +15,15 @@ namespace NiceHashCalc
     {
         static void Main(string[] args)
         {   //UPDATE TO YOUR OWN VALUES
-            string CoinbaseAPIKey = "ThisIsYourCoinbaseAPIKey";
-            string CoinbaseAPISecret = "ThisIsYourCoinbaseAPISecret";
-            string CoinbaseAccount = "ThisIsYourCoinbaseAccount";
-            string NiceHashAddress = "ThisIsYourNiceHashMiningAddress";
-            string NiceHashAPIId = "ThisIsyourNiceHashAPIId";
-            string NiceHashAPIKey = "ThisIsYourNiceHashAPIReadOnlyKey";
-            double TargetProfits = 1000000.00;
-            DateTime StartDate = new DateTime(2018, 01, 01);
-            DateTime TargetProfitDate = new DateTime(2030, 12, 31);
+			string CoinbaseAPIKey = ConfigurationManager.AppSettings["CoinbaseAPIKey"];
+            string CoinbaseAPISecret = ConfigurationManager.AppSettings["CoinbaseAPISecret"];
+			string CoinbaseAccount = ConfigurationManager.AppSettings["CoinbaseAccount"];
+			string NiceHashAddress = ConfigurationManager.AppSettings["NiceHashAddress"];
+			string NiceHashAPIId = ConfigurationManager.AppSettings["NiceHashAPIId"];
+			string NiceHashAPIKey = ConfigurationManager.AppSettings["NiceHashAPIKey"];
+            double TargetProfits = Convert.ToDouble(ConfigurationManager.AppSettings["TargetProfits"]);
+            DateTime StartDate = Convert.ToDateTime(ConfigurationManager.AppSettings["StartDate"]);
+            DateTime TargetProfitDate = Convert.ToDateTime(ConfigurationManager.AppSettings["TargetProfitDate"]);
             //BEGIN EXECUTION LOOP
             while (true)
             {
@@ -55,7 +56,7 @@ namespace NiceHashCalc
             Console.WriteLine("║                                                 ║   " + "                                             ║");
             Console.WriteLine("║ Total Balance:                   " + TotalBTC.ToString("N8") + " BTC" + " ║   " + "Total Balance In USD:              $ " + ((CBBalance + NHBalance + NHWalletBalance) * BTCUsd).ToString("0000.00") + " ║");
             Console.WriteLine("╠═════════════════════════════════════════════════╬════════════════════════════════════════════════╣");
-            Console.WriteLine("║ Proit Target:                     $ " + TargetProfits.ToString("0000000.00") + " ║   " + "Bitcoin Per Day:              " + ((ProfitPerMin * 60) * 24).ToString("N8") + " BTC ║");
+            Console.WriteLine("║ Proit Target:                      $ " + TargetProfits.ToString("0000000.00") + " ║   " + "Bitcoin Per Day:              " + ((ProfitPerMin * 60) * 24).ToString("N8") + " BTC ║");
             Console.WriteLine("║ Mining Start Date:                   " + StartDate.ToString("MM/dd/yyyy") + " ║   " + "Profit Per Hour:                   $ " + ((ProfitPerMin * 60) * BTCUsd).ToString("0.00000") + " ║");
             Console.WriteLine("║ Profits Target Date:                 " + TargetProfitDate.ToString("MM/dd/yyyy") + " ║   " + "Profit Per Day:                    $ " + (((ProfitPerMin * 60) * 24) * BTCUsd).ToString("0000.00") + " ║");
             Console.WriteLine("║ Days Until Target:                     " + DaysUntilPayment.Days.ToString("00000.00") + " ║   " + "Profit Per Week:                   $ " + ((((ProfitPerMin * 60) * 24) * 7) * BTCUsd).ToString("0000.00") + " ║");
