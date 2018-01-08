@@ -1,6 +1,6 @@
 # NiceHashCalc
 Description:
-This application is console applictaion that gets your current BTC balance on Coinbase and your unpaid balance on NiceHash and performs calulations to project earnings. This calculates your income based on your actualized returns into coinbase and not current market estimates. BTC price is Coinbase sell price for 1 BTC and includes the Coinbase sell fee so it may appear below current market trading price.  
+This application is a console applictaion that gets your current BTC balance on Coinbase and your unpaid balance on NiceHash and performs calulations to project earnings. This calculates your income based on your actualized returns into coinbase and not current market estimates. BTC price is Coinbase sell price for 1 BTC and includes the Coinbase sell fee so it may appear below current market trading price.  
 
 ![image](https://user-images.githubusercontent.com/20748167/34656980-230ac110-f3e7-11e7-9e85-62d643925b4b.png)
 
