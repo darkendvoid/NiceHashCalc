@@ -30,3 +30,5 @@ TargetProfitDate - The date you want to reach your Target Profit By
 5. Build the application and copy all DLL and exe from the Bin/Release directory that was created to another folder and run the EXE file. 
 
 Coinbase Implementation was taken from - https://github.com/iYalovoy/demibyte.coinbase
+
+App.Config implemntation taken from - https://github.com/jgulick48
