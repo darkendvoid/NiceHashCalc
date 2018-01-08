@@ -7,7 +7,7 @@ This application is console applictaion that gets your current BTC balance on Co
 1. Download Visual Studio Community https://www.visualstudio.com/vs/community/
 2. Create Coinbase API Keys with wallet:accounts:read permissions on your main BTC wallet
 3. Create NiceHash API Keys by going to NiceHash -> Settings -> API and create read only key
-4. Open the project in visual studio and modify in Nicehash.cs -
+4. Open the project in visual studio and modify App.Config -
 
 CoinbaseAPIKey - This should be your API Key from Coinbase
 
