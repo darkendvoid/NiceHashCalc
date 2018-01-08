@@ -29,6 +29,18 @@ TargetProfitDate - The date you want to reach your Target Profit By
 
 5. Build the application and copy all DLL exe and .config from the Bin/Release directory that was created to another folder and run the EXE file. 
 
+
+
+
+
+Alternatively -
+
+1. Download The Release
+2. Modify The Nicehash Calc.exe.config using your favorite text editor
+3. Enjoy!
+
+
+
 Coinbase Implementation was taken from - https://github.com/iYalovoy/demibyte.coinbase
 
 App.Config implemntation taken from - https://github.com/jgulick48
