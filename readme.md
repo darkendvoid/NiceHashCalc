@@ -27,7 +27,7 @@ StartDate - The day you started mining and were receiving payouts to Coinbase
 
 TargetProfitDate - The date you want to reach your Target Profit By
 
-5. Build the application and copy all DLL exe and .config from the Bin/Release directory that was created to another folder and run the EXE file. 
+5. Build the application and copy all DLL, EXE, and .config from the Bin/Release directory that was created to another folder and run the EXE file. 
 
 
 
@@ -36,7 +36,7 @@ TargetProfitDate - The date you want to reach your Target Profit By
 Alternatively -
 
 1. Download The Release
-2. Modify The Nicehash Calc.exe.config using your favorite text editor
+2. Modify The Nicehash Calc.exe.config using your favorite text editor to match the App.Config above
 3. Enjoy!
 
 
