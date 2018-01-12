@@ -1,0 +1,11 @@
+C:\Users\adamc\Documents\Visual Studio 2017\Projects\NiceHashCalc-master\NiceHash Calc\bin\Release\NiceHash Calc.exe.config
+C:\Users\adamc\Documents\Visual Studio 2017\Projects\NiceHashCalc-master\NiceHash Calc\bin\Release\NiceHash Calc.exe
+C:\Users\adamc\Documents\Visual Studio 2017\Projects\NiceHashCalc-master\NiceHash Calc\bin\Release\NiceHash Calc.pdb
+C:\Users\adamc\Documents\Visual Studio 2017\Projects\NiceHashCalc-master\NiceHash Calc\bin\Release\Flurl.dll
+C:\Users\adamc\Documents\Visual Studio 2017\Projects\NiceHashCalc-master\NiceHash Calc\bin\Release\Flurl.Http.dll
+C:\Users\adamc\Documents\Visual Studio 2017\Projects\NiceHashCalc-master\NiceHash Calc\bin\Release\Newtonsoft.Json.dll
+C:\Users\adamc\Documents\Visual Studio 2017\Projects\NiceHashCalc-master\NiceHash Calc\bin\Release\Flurl.xml
+C:\Users\adamc\Documents\Visual Studio 2017\Projects\NiceHashCalc-master\NiceHash Calc\bin\Release\Flurl.Http.xml
+C:\Users\adamc\Documents\Visual Studio 2017\Projects\NiceHashCalc-master\NiceHash Calc\bin\Release\Newtonsoft.Json.xml
+C:\Users\adamc\Documents\Visual Studio 2017\Projects\NiceHashCalc-master\NiceHash Calc\obj\Release\NiceHash Calc.exe
+C:\Users\adamc\Documents\Visual Studio 2017\Projects\NiceHashCalc-master\NiceHash Calc\obj\Release\NiceHash Calc.pdb

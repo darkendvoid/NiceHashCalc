@@ -50,19 +50,34 @@ namespace NiceHashCalc
             double ROI = Math.Round((TargetProfits / (((ProfitPerMin * 60) * 24) * CURBTC)), 2);
             double BufferDays = Math.Floor(DaysUntilPayment.Days - ROI);
             DateTime EstimatedPaymentDate = Today.AddDays(ROI);
-            Console.WriteLine("╔═════════════════════════════════════════════════╦════════════════════════════════════════════════╗");
-            Console.WriteLine("║ NiceHash Balance:                " + NHBalance.ToString("N8") + " BTC" + " ║   " + "BTC Price:                      " + CURBTC.ToString("0000.00") +" "+ CBCurrency + " ║");
-            Console.WriteLine("║ NiceHash Wallet Balance:         " + NHWalletBalance.ToString("N8") + " BTC" + " ║   " + "Coinbase Balance:                " + ((CBBalance) * CURBTC).ToString("0000.00") + " " + CBCurrency + " ║");
-            Console.WriteLine("║ Coinbase Balance:                " + CBBalance.ToString("N8") + " BTC" + " ║   " + "NiceHash Balance:                " + ((NHBalance + NHWalletBalance) * CURBTC).ToString("0000.00") + " " + CBCurrency + " ║");
-            Console.WriteLine("║                                                 ║   " + "                                             ║");
-            Console.WriteLine("║ Total Balance:                   " + TotalBTC.ToString("N8") + " BTC" + " ║   " + "Total Balance:                   " + ((CBBalance + NHBalance + NHWalletBalance) * CURBTC).ToString("0000.00") + " " + CBCurrency + " ║");
-            Console.WriteLine("╠═════════════════════════════════════════════════╬════════════════════════════════════════════════╣");
-            Console.WriteLine("║ Proit Target:                    " + TargetProfits.ToString("0000000.00") + " "+CBCurrency+" ║   " + "Bitcoin Per Day:              " + ((ProfitPerMin * 60) * 24).ToString("N8") + " BTC ║");
-            Console.WriteLine("║ Mining Start Date:                   " + StartDate.ToString("MM/dd/yyyy") + " ║   " + "Profit Per Hour:                 " + ((ProfitPerMin * 60) * CURBTC).ToString("0.00000") + " " + CBCurrency + " ║");
-            Console.WriteLine("║ Profits Target Date:                 " + TargetProfitDate.ToString("MM/dd/yyyy") + " ║   " + "Profit Per Day:                  " + (((ProfitPerMin * 60) * 24) * CURBTC).ToString("0000.00") + " " + CBCurrency + " ║");
-            Console.WriteLine("║ Days Until Target:                     " + DaysUntilPayment.Days.ToString("00000.00") + " ║   " + "Profit Per Week:                 " + ((((ProfitPerMin * 60) * 24) * 7) * CURBTC).ToString("0000.00") + " " + CBCurrency + " ║");
-            Console.WriteLine("║ Estimated Target Date:               " + EstimatedPaymentDate.ToString("MM/dd/yyyy") + " ║   " + "Profit Per Month:                " + ((((ProfitPerMin * 60) * 24) * 30) * CURBTC).ToString("0000.00") + " " + CBCurrency + " ║");
-            Console.WriteLine("╚═════════════════════════════════════════════════╩════════════════════════════════════════════════╝");
+            string strCURBTC = CURBTC.ToString("#,##0.##") + " " + CBCurrency;
+            string strCBBalance = ((CBBalance) * CURBTC).ToString("#,##0.##") + " " + CBCurrency;
+            string strNHBalance = ((NHBalance + NHWalletBalance) * CURBTC).ToString("#,##0.##") + " " + CBCurrency;
+            string strTotalBalance = ((CBBalance + NHBalance + NHWalletBalance) * CURBTC).ToString("#,##0.##") + " " + CBCurrency;
+            string strBTCPerDay = ((ProfitPerMin * 60) * 24).ToString("N8");
+            string strPPH = ((ProfitPerMin * 60) * CURBTC).ToString("0.00000") + " " + CBCurrency;
+            string strPPD = (((ProfitPerMin * 60) * 24) * CURBTC).ToString("#,##0.##") + " " + CBCurrency;
+            string strPPW = ((((ProfitPerMin * 60) * 24) * 7) * CURBTC).ToString("#,##0.##") + " " + CBCurrency;
+            string strPPM = ((((ProfitPerMin * 60) * 24) * 30) * CURBTC).ToString("#,##0.##") + " " + CBCurrency;
+            string strProfitTarget = TargetProfits.ToString("#,##0.##") + " " + CBCurrency;
+            string strDaysUntilTarget = DaysUntilPayment.Days.ToString("N2");
+            string strNHBTC = NHBalance.ToString("N8");
+            string strNHWallet = NHWalletBalance.ToString("N8");
+            string strCBBTC = CBBalance.ToString("N8");
+            string strTotalBTC = TotalBTC.ToString("N8");
+            Console.WriteLine("╔══════════════════════════════════════════════════════════╦═════════════════════════════════════════════════════════╗");
+            Console.WriteLine("║ NiceHash Balance:" + strNHBTC.PadLeft(35, ' ') + " BTC" + " ║ " + "BTC Price:" + strCURBTC.PadLeft(45, ' ') +" ║");
+            Console.WriteLine("║ NiceHash Wallet Balance:" + strNHWallet.PadLeft(28,' ') + " BTC" + " ║ " + "Coinbase Balance:" + strCBBalance.PadLeft(38, ' ')+" ║");
+            Console.WriteLine("║ Coinbase Balance:" + strCBBTC.PadLeft(35, ' ') + " BTC" + " ║ " + "NiceHash Balance:" + strNHBalance.PadLeft(38, ' ')+" ║");
+            Console.WriteLine("║                                                          ║                                                         ║");
+            Console.WriteLine("║ Total Balance:" + strTotalBTC.PadLeft(38, ' ') + " BTC" + " ║ " + "Total Balance:" + strTotalBalance.PadLeft(41, ' ')+ " ║");
+            Console.WriteLine("╠══════════════════════════════════════════════════════════╬═════════════════════════════════════════════════════════╣");
+            Console.WriteLine("║ Proit Target:" + strProfitTarget.PadLeft(43, ' ') + " ║ " + "Bitcoin Per Day:" + strBTCPerDay.PadLeft(35, ' ')+ " BTC ║");
+            Console.WriteLine("║ Mining Start Date:                            " + StartDate.ToString("MM/dd/yyyy") + " ║ " + "Profit Per Hour:" + strPPH.PadLeft(39, ' ') +  " ║");
+            Console.WriteLine("║ Profits Target Date:                          " + TargetProfitDate.ToString("MM/dd/yyyy") + " ║ " + "Profit Per Day:" + strPPD.PadLeft(40, ' ') +" ║");
+            Console.WriteLine("║ Days Until Target:" + strDaysUntilTarget.PadLeft(38, ' ')+" ║ " + "Profit Per Week:" + strPPW.PadLeft(39, ' ') + " ║");
+            Console.WriteLine("║ Estimated Target Date:                        " + EstimatedPaymentDate.ToString("MM/dd/yyyy") + " ║ " + "Profit Per Month:" +  strPPM.PadLeft(38, ' ') +" ║");
+            Console.WriteLine("╚══════════════════════════════════════════════════════════╩═════════════════════════════════════════════════════════╝");
         }
 
         //COINBASE FUNCTIONS
