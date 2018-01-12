@@ -2,7 +2,9 @@
 Description:
 This application is a console applictaion that gets your current BTC balance on Coinbase and your unpaid balance on NiceHash and performs calulations to project earnings. This calculates your income based on your actualized returns into coinbase and not current market estimates. BTC price is Coinbase sell price for 1 BTC and includes the Coinbase sell fee so it may appear below current market trading price.  
 
-![image](https://user-images.githubusercontent.com/20748167/34656980-230ac110-f3e7-11e7-9e85-62d643925b4b.png)
+![image](https://user-images.githubusercontent.com/20748167/34861220-efb3b052-f728-11e7-994d-8f14cebb4003.png)
+![image](https://user-images.githubusercontent.com/20748167/34861241-2010c776-f729-11e7-89b9-22bd07e1485d.png)
+
 
 1. Download Visual Studio Community https://www.visualstudio.com/vs/community/
 2. Create Coinbase API Keys with wallet:accounts:read permissions on your main BTC wallet
