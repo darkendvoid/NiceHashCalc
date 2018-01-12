@@ -27,6 +27,8 @@ StartDate - The day you started mining and were receiving payouts to Coinbase
 
 TargetProfitDate - The date you want to reach your Target Profit By
 
+FiatCurrency - Allows you to use a your local currency for calulations. Please note that your currency must be supported by Coinbase, if the website does not use your local currency it may not work. You must use a ISO 4217 Alphabetic code. https://www.iso.org/iso-4217-currency-codes.html https://en.wikipedia.org/wiki/ISO_4217#Active_codes
+
 5. Build the application and copy all DLL, EXE, and .config from the Bin/Release directory that was created to another folder and run the EXE file. 
 
 

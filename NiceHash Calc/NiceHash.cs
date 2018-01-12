@@ -24,52 +24,53 @@ namespace NiceHashCalc
             double TargetProfits = Convert.ToDouble(ConfigurationManager.AppSettings["TargetProfits"]);
             DateTime StartDate = Convert.ToDateTime(ConfigurationManager.AppSettings["StartDate"]);
             DateTime TargetProfitDate = Convert.ToDateTime(ConfigurationManager.AppSettings["TargetProfitDate"]);
+            string CBCurrency = Convert.ToString(ConfigurationManager.AppSettings["FiatCurrency"]);
             //BEGIN EXECUTION LOOP
             while (true)
             {
                 Console.Clear();
-                ConsoleOutput(CoinbaseAPIKey, CoinbaseAPISecret, CoinbaseAccount, NiceHashAddress, TargetProfits, StartDate, TargetProfitDate, NiceHashAPIId, NiceHashAPIKey);
+                ConsoleOutput(CoinbaseAPIKey, CoinbaseAPISecret, CoinbaseAccount, NiceHashAddress, TargetProfits, StartDate, TargetProfitDate, NiceHashAPIId, NiceHashAPIKey, CBCurrency);
                 Thread.Sleep(120000);
             }
         }
 
-        static void ConsoleOutput(string CBAPIKEY, string CBSECRETKEY, string CBACCOUNT, string NiceHashAddress, double TargetProfits, DateTime StartDate, DateTime TargetProfitDate, string NiceHashAPIId, string NiceHashAPIKey)
+        static void ConsoleOutput(string CBAPIKEY, string CBSECRETKEY, string CBACCOUNT, string NiceHashAddress, double TargetProfits, DateTime StartDate, DateTime TargetProfitDate, string NiceHashAPIId, string NiceHashAPIKey, string CBCurrency)
         {
             //DO NOT TOUCH BELOW
             double CBBalance = GetCBBalance(CBAPIKEY, CBSECRETKEY, CBACCOUNT);
             double NHBalance = GetNicehashBalance(NiceHashAddress);
-            double BTCUsd = SpotSellPrice(CBAPIKEY, CBSECRETKEY);
+            double CURBTC = SpotSellPrice(CBAPIKEY, CBSECRETKEY, CBCurrency);
             double NHWalletBalance = GetNicehashWallet(NiceHashAPIId, NiceHashAPIKey);
-            double TotalBTC = (NHBalance + CBBalance);
+            double TotalBTC = (NHBalance + NHWalletBalance + CBBalance);
             DateTime Today = DateTime.Now;
             TimeSpan DaysUntilPayment = TargetProfitDate.Subtract(Today);
             TimeSpan DaysMining = Today.Subtract(StartDate);
             double TotalMinutesMining = ((((DaysMining.Days * 24) + DaysMining.Hours) * 60) + DaysMining.Minutes);
             double ProfitPerMin = Math.Round(((((NHBalance + CBBalance + NHWalletBalance) / TotalMinutesMining))), 8);
-            double ROI = Math.Round((TargetProfits / (((ProfitPerMin * 60) * 24) * BTCUsd)), 2);
+            double ROI = Math.Round((TargetProfits / (((ProfitPerMin * 60) * 24) * CURBTC)), 2);
             double BufferDays = Math.Floor(DaysUntilPayment.Days - ROI);
             DateTime EstimatedPaymentDate = Today.AddDays(ROI);
             Console.WriteLine("╔═════════════════════════════════════════════════╦════════════════════════════════════════════════╗");
-            Console.WriteLine("║ NiceHash Balance:                " + NHBalance.ToString("N8") + " BTC" + " ║   " + "BTC Price In USD:                 $ " + BTCUsd.ToString("0000.00") + " ║");
-            Console.WriteLine("║ NiceHash Wallet Balance:         " + NHWalletBalance.ToString("N8") + " BTC" + " ║   " + "Coinbase Balance In USD:           $ " + ((CBBalance) * BTCUsd).ToString("0000.00") + " ║");
-            Console.WriteLine("║ Coinbase Balance:                " + CBBalance.ToString("N8") + " BTC" + " ║   " + "NiceHash Balance In USD:           $ " + ((NHBalance + NHWalletBalance) * BTCUsd).ToString("0000.00") + " ║");
+            Console.WriteLine("║ NiceHash Balance:                " + NHBalance.ToString("N8") + " BTC" + " ║   " + "BTC Price:                      " + CURBTC.ToString("0000.00") +" "+ CBCurrency + " ║");
+            Console.WriteLine("║ NiceHash Wallet Balance:         " + NHWalletBalance.ToString("N8") + " BTC" + " ║   " + "Coinbase Balance:                " + ((CBBalance) * CURBTC).ToString("0000.00") + " " + CBCurrency + " ║");
+            Console.WriteLine("║ Coinbase Balance:                " + CBBalance.ToString("N8") + " BTC" + " ║   " + "NiceHash Balance:                " + ((NHBalance + NHWalletBalance) * CURBTC).ToString("0000.00") + " " + CBCurrency + " ║");
             Console.WriteLine("║                                                 ║   " + "                                             ║");
-            Console.WriteLine("║ Total Balance:                   " + TotalBTC.ToString("N8") + " BTC" + " ║   " + "Total Balance In USD:              $ " + ((CBBalance + NHBalance + NHWalletBalance) * BTCUsd).ToString("0000.00") + " ║");
+            Console.WriteLine("║ Total Balance:                   " + TotalBTC.ToString("N8") + " BTC" + " ║   " + "Total Balance:                   " + ((CBBalance + NHBalance + NHWalletBalance) * CURBTC).ToString("0000.00") + " " + CBCurrency + " ║");
             Console.WriteLine("╠═════════════════════════════════════════════════╬════════════════════════════════════════════════╣");
-            Console.WriteLine("║ Proit Target:                      $ " + TargetProfits.ToString("0000000.00") + " ║   " + "Bitcoin Per Day:              " + ((ProfitPerMin * 60) * 24).ToString("N8") + " BTC ║");
-            Console.WriteLine("║ Mining Start Date:                   " + StartDate.ToString("MM/dd/yyyy") + " ║   " + "Profit Per Hour:                   $ " + ((ProfitPerMin * 60) * BTCUsd).ToString("0.00000") + " ║");
-            Console.WriteLine("║ Profits Target Date:                 " + TargetProfitDate.ToString("MM/dd/yyyy") + " ║   " + "Profit Per Day:                    $ " + (((ProfitPerMin * 60) * 24) * BTCUsd).ToString("0000.00") + " ║");
-            Console.WriteLine("║ Days Until Target:                     " + DaysUntilPayment.Days.ToString("00000.00") + " ║   " + "Profit Per Week:                   $ " + ((((ProfitPerMin * 60) * 24) * 7) * BTCUsd).ToString("0000.00") + " ║");
-            Console.WriteLine("║ Estimated Target Date:               " + EstimatedPaymentDate.ToString("MM/dd/yyyy") + " ║   " + "Profit Per Month:                  $ " + ((((ProfitPerMin * 60) * 24) * 30) * BTCUsd).ToString("0000.00") + " ║");
+            Console.WriteLine("║ Proit Target:                    " + TargetProfits.ToString("0000000.00") + " "+CBCurrency+" ║   " + "Bitcoin Per Day:              " + ((ProfitPerMin * 60) * 24).ToString("N8") + " BTC ║");
+            Console.WriteLine("║ Mining Start Date:                   " + StartDate.ToString("MM/dd/yyyy") + " ║   " + "Profit Per Hour:                 " + ((ProfitPerMin * 60) * CURBTC).ToString("0.00000") + " " + CBCurrency + " ║");
+            Console.WriteLine("║ Profits Target Date:                 " + TargetProfitDate.ToString("MM/dd/yyyy") + " ║   " + "Profit Per Day:                  " + (((ProfitPerMin * 60) * 24) * CURBTC).ToString("0000.00") + " " + CBCurrency + " ║");
+            Console.WriteLine("║ Days Until Target:                     " + DaysUntilPayment.Days.ToString("00000.00") + " ║   " + "Profit Per Week:                 " + ((((ProfitPerMin * 60) * 24) * 7) * CURBTC).ToString("0000.00") + " " + CBCurrency + " ║");
+            Console.WriteLine("║ Estimated Target Date:               " + EstimatedPaymentDate.ToString("MM/dd/yyyy") + " ║   " + "Profit Per Month:                " + ((((ProfitPerMin * 60) * 24) * 30) * CURBTC).ToString("0000.00") + " " + CBCurrency + " ║");
             Console.WriteLine("╚═════════════════════════════════════════════════╩════════════════════════════════════════════════╝");
         }
 
         //COINBASE FUNCTIONS
-        static double SpotSellPrice(string apiKey, string apiSecret)
+        static double SpotSellPrice(string apiKey, string apiSecret, string apiCurrency)
         {
             var host = "https://api.coinbase.com/";
             var unixTimestamp = (Int32)(DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1))).TotalSeconds;
-            var currency = "USD";
+            var currency = apiCurrency;
             var message = string.Format("{0}GET/v2/prices/sell?currency={1}", unixTimestamp.ToString(), currency);
 
             byte[] secretKey = Encoding.UTF8.GetBytes(apiSecret);
